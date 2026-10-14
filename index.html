@@ -121,6 +121,16 @@ section.s:nth-of-type(even){background:var(--alt)}
 .rule b{display:block;font:800 15px var(--h);color:var(--ink);margin-bottom:4px}
 .note a{color:var(--blue)}
 @media (max-width:900px){.rules{grid-template-columns:1fr}.item.rpi{grid-template-columns:62px 1fr}}
+.ptabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ptabs button{display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--b);color:var(--body);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;cursor:pointer}
+.ptabs button i{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;color:#fff;font:800 9px/1 var(--b);font-style:normal}
+.ptabs button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);color:var(--ink)}
+.pf,.ev span.pf{display:flex;gap:3px;margin-top:5px;-webkit-line-clamp:unset;overflow:visible}
+.pf i,.side .pf i{width:16px;height:16px;border-radius:4px;display:grid;place-items:center;color:#fff;font:800 8px/1 var(--b);font-style:normal}
+.pf i.off{opacity:.35}
+.c-yt{background:#FF0000}.c-fb{background:#1877F2}.c-tt{background:#111}.c-all{background:var(--muted)}
+.pst{display:grid;gap:4px;justify-items:end;font-size:12px;color:var(--muted)}
+.pst span{display:inline-flex;align-items:center;gap:6px}
 .note{margin-top:16px;font-size:13.5px;color:var(--muted);background:var(--amber-050);border-radius:12px;padding:12px 16px}
 .note b{color:var(--amber)}
 
@@ -150,7 +160,7 @@ footer{padding:28px 0 40px;font-size:13px;color:var(--muted)}
 <header class="hero">
   <div class="hero-bg"><div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div><div class="grid"></div></div>
   <div class="hero-in">
-    <div class="brand"><i><svg viewBox="0 0 12 12" fill="#fff"><path d="M3 1.5v9L10.5 6z"/></svg></i>Isabelle Claus Teixeira<span>YouTube channel</span></div>
+    <div class="brand"><i><svg viewBox="0 0 12 12" fill="#fff"><path d="M3 1.5v9L10.5 6z"/></svg></i>Isabelle Claus Teixeira<span>YouTube &middot; Facebook &middot; TikTok</span></div>
     <p class="eyebrow"><b>YouTube</b> &middot; Content schedule &middot; 14 Oct &ndash; 25 Dec 2026</p>
     <h1>What goes live on YouTube, <em>day by day.</em></h1>
     <p class="lead">Two podcast episodes and twelve Shorts are already scheduled in YouTube Studio. After that, one Short a day: the last ten Sara Marie clips, plus older clips reposted from the Saymara, Simba, Alex and Isabelle folders.</p>
@@ -171,6 +181,7 @@ footer{padding:28px 0 40px;font-size:13px;color:var(--muted)}
         <h2>Month view</h2>
         <p class="sub">Scheduled entries open on YouTube; planned entries open the video file in Drive.</p>
       </div>
+      <div class="ptabs" id="ptabs"></div>
       <div class="calbar">
         <div class="tabs" id="mtabs"></div>
         <div class="legend"><span><i style="background:var(--blue)"></i>Podcast video</span><span><i style="background:var(--red)"></i>Short (scheduled)</span><span><i style="background:var(--amber)"></i>New Short (to schedule)</span><span><i style="background:var(--teal)"></i>Repost</span></div>
@@ -245,6 +256,21 @@ function pd(s){var p=s.split("-");return new Date(+p[0],+p[1]-1,+p[2])}
 /* calendar */
 var months=[[2026,9],[2026,10],[2026,11]], cur=0;
 var ALL=DATA.concat(X.rep);
+/* platforms: yt = YouTube, fb = Facebook (BHD Asia page), tt = TikTok. Status text per platform. */
+DATA.forEach(function(e){
+  e.pl = e.t==="pc" ? {yt:e.st==="live"?"Live":e.st==="prem"?"Premiere":"Scheduled"}
+       : {yt:"Scheduled", fb:"Buffer 7:00 PM", tt:"Planned"};
+});
+X.rep.forEach(function(e){ e.pl = {yt:"Planned", fb:"Planned", tt:"Planned"}; });
+var PL=[["all","All platforms","&#9679;","c-all"],["yt","YouTube","YT","c-yt"],["fb","Facebook","FB","c-fb"],["tt","TikTok","TT","c-tt"]], pcur="all";
+function onP(e){return pcur==="all"||!!e.pl[pcur]}
+function pbadges(e){return '<span class="pf">'+PL.slice(1).map(function(p){return '<i class="'+p[3]+(e.pl[p[0]]?'':' off')+'" title="'+p[1]+(e.pl[p[0]]?': '+e.pl[p[0]]:': not posted')+'">'+p[2]+'</i>'}).join("")+'</span>'}
+function pstatus(e){return '<div class="pst">'+PL.slice(1).filter(function(p){return e.pl[p[0]]}).map(function(p){return '<span><i class="'+p[3]+'" style="width:16px;height:16px;border-radius:4px;display:inline-grid;place-items:center;color:#fff;font:800 8px/1 var(--b);font-style:normal">'+p[2]+'</i>'+e.pl[p[0]]+'</span>'}).join("")+'</div>'}
+function drawP(){
+  document.getElementById("ptabs").innerHTML=PL.map(function(p){var n=ALL.filter(function(e){return p[0]==="all"||!!e.pl[p[0]]}).length;return '<button data-p="'+p[0]+'" aria-pressed="'+(p[0]===pcur)+'"><i class="'+p[3]+'">'+p[2]+'</i>'+p[1]+' &middot; '+n+'</button>'}).join("");
+}
+document.getElementById("ptabs").addEventListener("click",function(e){var b=e.target.closest("button");if(b){pcur=b.dataset.p;drawP();drawMonth();drawList();drawPlan();}});
+drawP();
 function drawMonth(){
   var y=months[cur][0], m=months[cur][1];
   var first=new Date(y,m,1), start=first.getDay(), days=new Date(y,m+1,0).getDate();
@@ -254,10 +280,10 @@ function drawMonth(){
     var dn=i-start+1;
     if(dn<1||dn>days){h+='<div class="cell out empty"></div>';continue}
     var key=y+"-"+String(m+1).padStart(2,"0")+"-"+String(dn).padStart(2,"0");
-    var evs=ALL.filter(function(e){return e.d===key});
+    var evs=ALL.filter(function(e){return e.d===key&&onP(e)});
     var cls="cell"+(key===TODAY?" today":"")+(evs.length?"":" empty");
     h+='<div class="'+cls+'"><span class="d">'+dn+'</span><div class="evs">'+evs.map(function(e){
-      return '<a class="ev '+e.t+'" href="'+url(e)+'" target="_blank" rel="noopener"><small>'+LBL[e.t]+'</small><span>'+e.title+'</span></a>'}).join("")+'</div></div>';
+      return '<a class="ev '+e.t+'" href="'+url(e)+'" target="_blank" rel="noopener"><small>'+LBL[e.t]+'</small><span>'+e.title+'</span>'+pbadges(e)+'</a>'}).join("")+'</div></div>';
   }
   document.getElementById("month").innerHTML=h;
   document.querySelectorAll("#mtabs button").forEach(function(b,i){b.setAttribute("aria-pressed",i===cur)});
@@ -271,13 +297,13 @@ drawMonth();
 /* list */
 var F=[["all","All"],["pc","Podcast videos"],["sh","Shorts"]], fcur="all";
 function drawList(){
-  document.getElementById("list").innerHTML=DATA.filter(function(e){return fcur==="all"||e.t===fcur}).map(function(e){
+  document.getElementById("list").innerHTML=DATA.filter(function(e){return (fcur==="all"||e.t===fcur)&&onP(e)}).map(function(e){
     var d=pd(e.d), s=ST[e.st];
     return '<div class="item">'+
       '<div class="when"><b>'+d.getDate()+' '+MON[d.getMonth()]+'</b><small>'+DOW[d.getDay()]+' &middot; 2026</small></div>'+
       '<a class="thumb" href="'+url(e)+'" target="_blank" rel="noopener"><img loading="lazy" alt="" src="'+(e.t==="sh"&&X.sched[e.d]?X.sched[e.d].img:"https://i.ytimg.com/vi/"+e.id+"/mqdefault.jpg")+'" onerror="this.remove()">'+(e.len?'<span class="len">'+e.len+'</span>':'')+'</a>'+
       '<div class="info"><span class="k '+e.t+'">'+(e.t==="sh"?"Short":"Podcast video")+'</span><h3>'+e.title+'</h3><p>'+e.cap+'</p>'+(e.tags?'<div class="tags">'+e.tags+'</div>':'')+(e.t==="sh"&&X.sched[e.d]?'<div class="src">Source: <a href="'+drv(X.sched[e.d].fid)+'" target="_blank" rel="noopener">'+X.sched[e.d].file+'</a></div>':'')+'</div>'+
-      '<div class="side"><span class="pill '+s[1]+'">'+s[0]+'</span><a class="open" href="'+url(e)+'" target="_blank" rel="noopener">Open on YouTube &rarr;</a></div>'+
+      '<div class="side">'+pstatus(e)+'<a class="open" href="'+url(e)+'" target="_blank" rel="noopener">Open on YouTube &rarr;</a></div>'+
     '</div>'}).join("");
   document.querySelectorAll("#ftabs button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.f===fcur)});
 }
@@ -291,13 +317,13 @@ drawList();
 var RF=[["all","All"],["nw","New Sara Marie"],["Saymara","Saymara"],["Simba","Simba"],["Alex","Alex"],["Isabelle solo","Isabelle"]], rcur="all";
 function rmatch(e,f){f=f||rcur;return f==="all"||(f==="nw"?e.t==="nw":e.t==="rp"&&e.src.indexOf(f)===0)}
 function drawPlan(){
-  document.getElementById("rlist").innerHTML=X.rep.filter(function(e){return rmatch(e)}).map(function(e){
+  document.getElementById("rlist").innerHTML=X.rep.filter(function(e){return rmatch(e)&&onP(e)}).map(function(e){
     var d=pd(e.d);
     return '<div class="item rpi">'+
       '<div class="when"><b>'+d.getDate()+' '+MON[d.getMonth()]+'</b><small>'+DOW[d.getDay()]+' &middot; '+d.getFullYear()+'</small></div>'+
       '<a class="thumb p" href="'+drv(e.fid)+'" target="_blank" rel="noopener"><img alt="" src="'+e.img+'"><span class="len">'+e.len+'</span></a>'+
       '<div class="info"><span class="k '+e.t+'">'+(e.t==="nw"?"New Short":"Repost")+'</span><h3>'+e.src+'</h3><p>'+e.file+'</p></div>'+
-      '<div class="side">'+(e.long?'<span class="pill p-warn">Over 3 min &middot; post as video</span>':'<span class="pill p-todo">To schedule</span>')+'<a class="open" href="'+drv(e.fid)+'" target="_blank" rel="noopener">Open in Drive &rarr;</a></div>'+
+      '<div class="side">'+(e.long?'<span class="pill p-warn">Over 3 min &middot; video, not a Short</span>':'')+pstatus(e)+'<a class="open" href="'+drv(e.fid)+'" target="_blank" rel="noopener">Open in Drive &rarr;</a></div>'+
     '</div>'}).join("");
   document.querySelectorAll("#rtabs button").forEach(function(b){b.setAttribute("aria-pressed",b.dataset.f===rcur)});
 }
