@@ -369,7 +369,7 @@ window.A_ISV=function(){
 window.A_ISI=function(){
   var cols={fm:"#9C4A66",br:"#3B8CC4",bm:"#2E9A82",ct:"#A9822E"},types={};
   Object.keys(D.ev).forEach(function(k){types[k]={n:"Event \u00b7 "+D.ev[k].short.replace("&amp;","&"),c:cols[k]||D.ev[k].col}});
-  var B="https://technextmarketing.github.io/isabelle-youtube-schedule/";
+  var B="https://technextmarketing.github.io/isabelle-schedule/";
   var items=D.rows.map(function(r){var v=D.ev[r.e];
     return {d:r.d,type:r.e,time:"12:00 PM",title:r.concept,sub:v.name,img:B+r.img,full:B+r.full,
       pl:[{k:"fb",time:"12:00 PM",cap:r.cap,status:"BHD Asia page"},{k:"li",time:"12:00 PM",cap:r.cap,status:"bhd-asia page"}],st:"p",
@@ -390,9 +390,9 @@ window.A_ISI=function(){
 (function(){
 "use strict";
 var PAGES=[
-  {id:"all",label:"All schedules",href:"https://technextmarketing.github.io/technext-plans/all-schedules.html",c:"linear-gradient(90deg,#3167CA 50%,#9C3B5B 50%)"},
+  {id:"all",label:"← All clients",href:"https://technextmarketing.github.io/technext-plans/all-schedules.html",c:"transparent"},
   {id:"tn",label:"TechNext",href:"https://technextmarketing.github.io/technext-plans/schedule.html",c:"#3167CA"},
-  {id:"is",label:"Isabelle",href:"https://technextmarketing.github.io/isabelle-youtube-schedule/",c:"#9C3B5B"}
+  {id:"is",label:"Isabelle",href:"https://technextmarketing.github.io/isabelle-schedule/",c:"#9C3B5B"}
 ];
 /* merge the page's parts (one adapter per data source) into one calendar */
 function combine(){
