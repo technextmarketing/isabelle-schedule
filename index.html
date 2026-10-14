@@ -208,7 +208,7 @@ footer{padding:28px 0 40px;font-size:13px;color:var(--muted)}
       <div class="head">
         <p class="eyebrow">03 &middot; Plan</p>
         <h2>Next: new Shorts and reposts</h2>
-        <p class="sub">Not in YouTube Studio yet. Each clip still needs a title and caption.</p>
+        <p class="sub">All 39 are scheduled on the BHD Asia Facebook page (7:00 PM Manila). Not in YouTube Studio or TikTok yet.</p>
       </div>
       <div class="rules">
         <div class="rule"><b>October gap days</b>Saymara clips only before the Bucharest event (17&ndash;23 Oct), with the event link. Alex and Simba clips on 25 and 27 Oct.</div>
@@ -261,7 +261,7 @@ DATA.forEach(function(e){
   e.pl = e.t==="pc" ? {yt:e.st==="live"?"Live":e.st==="prem"?"Premiere":"Scheduled"}
        : {yt:"Scheduled", fb:"Scheduled 7:00 PM (Buffer)", tt:"Planned"};
 });
-X.rep.forEach(function(e){ e.pl = e.hold ? {} : {yt:"Planned", fb:"Planned", tt:"Planned"}; });
+X.rep.forEach(function(e){ e.pl = e.hold ? {} : {yt:"Planned", fb:"Scheduled 7:00 PM (Buffer)", tt:"Planned"}; });
 var PL=[["all","All platforms","&#9679;","c-all"],["yt","YouTube","YT","c-yt"],["fb","Facebook","FB","c-fb"],["tt","TikTok","TT","c-tt"]], pcur="all";
 function onP(e){return pcur==="all"||!!e.pl[pcur]}
 function pshow(){return PL.slice(1).filter(function(p){return pcur==="all"||p[0]===pcur})}
