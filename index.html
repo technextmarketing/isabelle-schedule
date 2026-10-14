@@ -264,8 +264,9 @@ DATA.forEach(function(e){
 X.rep.forEach(function(e){ e.pl = {yt:"Planned", fb:"Planned", tt:"Planned"}; });
 var PL=[["all","All platforms","&#9679;","c-all"],["yt","YouTube","YT","c-yt"],["fb","Facebook","FB","c-fb"],["tt","TikTok","TT","c-tt"]], pcur="all";
 function onP(e){return pcur==="all"||!!e.pl[pcur]}
-function pbadges(e){return '<span class="pf">'+PL.slice(1).map(function(p){return '<i class="'+p[3]+(e.pl[p[0]]?'':' off')+'" title="'+p[1]+(e.pl[p[0]]?': '+e.pl[p[0]]:': not posted')+'">'+p[2]+'</i>'}).join("")+'</span>'}
-function pstatus(e){return '<div class="pst">'+PL.slice(1).filter(function(p){return e.pl[p[0]]}).map(function(p){return '<span><i class="'+p[3]+'" style="width:16px;height:16px;border-radius:4px;display:inline-grid;place-items:center;color:#fff;font:800 8px/1 var(--b);font-style:normal">'+p[2]+'</i>'+e.pl[p[0]]+'</span>'}).join("")+'</div>'}
+function pshow(){return PL.slice(1).filter(function(p){return pcur==="all"||p[0]===pcur})}
+function pbadges(e){return '<span class="pf">'+pshow().map(function(p){return '<i class="'+p[3]+(e.pl[p[0]]?'':' off')+'" title="'+p[1]+(e.pl[p[0]]?': '+e.pl[p[0]]:': not posted')+'">'+p[2]+'</i>'}).join("")+'</span>'}
+function pstatus(e){return '<div class="pst">'+pshow().filter(function(p){return e.pl[p[0]]}).map(function(p){return '<span><i class="'+p[3]+'" style="width:16px;height:16px;border-radius:4px;display:inline-grid;place-items:center;color:#fff;font:800 8px/1 var(--b);font-style:normal">'+p[2]+'</i>'+e.pl[p[0]]+'</span>'}).join("")+'</div>'}
 function drawP(){
   document.getElementById("ptabs").innerHTML=PL.map(function(p){var n=ALL.filter(function(e){return p[0]==="all"||!!e.pl[p[0]]}).length;return '<button data-p="'+p[0]+'" aria-pressed="'+(p[0]===pcur)+'"><i class="'+p[3]+'">'+p[2]+'</i>'+p[1]+' &middot; '+n+'</button>'}).join("");
 }
