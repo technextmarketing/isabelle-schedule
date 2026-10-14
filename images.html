@@ -1,0 +1,288 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="robots" content="noindex,nofollow">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Image Posting Schedule</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@600;700;800&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --paper:#FFFFFF;--alt:#FAF9FB;--ink:#1F1F3D;--body:#4C4C63;--muted:#7A7A92;--line:#E7E4E9;
+  --blue:#3167CA;--blue-050:#EAF0FB;--blue-100:#DDE7F8;
+  --red:#D93025;--red-050:#FCEBEA;--teal:#21B799;--teal-050:#E3F3F0;--lilac-050:#F1E9F3;
+  --amber:#A96B00;--amber-050:#FDF6E9;--ok:#137A4A;--ok-050:#E8F5EE;
+  --card:#FFFFFF;--shadow:0 1px 2px rgba(31,31,61,.05),0 8px 24px rgba(31,31,61,.06);
+  --h:"Plus Jakarta Sans",system-ui,sans-serif;--b:"Inter",system-ui,sans-serif;
+}
+*{box-sizing:border-box}
+html{-webkit-text-size-adjust:100%}
+body{margin:0;background:var(--paper);color:var(--body);font:400 16px/1.6 var(--b)}
+h1,h2,h3{font-family:var(--h);color:var(--ink);margin:0;letter-spacing:-.02em}
+p{margin:0}
+a{color:inherit}
+.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
+.eyebrow{font:700 12px/1 var(--b);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:0 0 14px}
+.eyebrow b{color:var(--red)}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero-bg{position:absolute;inset:0;pointer-events:none}
+.aurora{position:absolute;border-radius:50%;filter:blur(40px);opacity:.8}
+.a1{width:520px;height:520px;left:-140px;top:-180px;background:var(--red-050)}
+.a2{width:460px;height:460px;right:-120px;top:40px;background:var(--teal-050)}
+.a3{width:420px;height:420px;left:38%;bottom:-260px;background:var(--lilac-050)}
+.grid{position:absolute;inset:0;background-image:linear-gradient(var(--blue-050) 1px,transparent 1px),linear-gradient(90deg,var(--blue-050) 1px,transparent 1px);background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(ellipse 70% 80% at 50% 40%,#000 30%,transparent 100%);mask-image:radial-gradient(ellipse 70% 80% at 50% 40%,#000 30%,transparent 100%)}
+.hero-in{position:relative;padding:56px 24px 48px;max-width:1120px;margin:0 auto}
+.brand{display:flex;align-items:center;gap:10px;font:800 18px/1 var(--h);color:var(--ink);margin-bottom:36px}
+.brand i{width:30px;height:22px;border-radius:7px;background:var(--red);display:grid;place-items:center}
+.brand i svg{width:12px;height:12px}
+.brand span{font:500 13px/1 var(--b);color:var(--muted);margin-left:6px;padding-left:12px;border-left:1px solid var(--line)}
+.hero h1{font-size:clamp(34px,5.2vw,56px);line-height:1.05;font-weight:800;max-width:14em}
+.hero h1 em{font-style:normal;color:var(--red)}
+.lead{font-size:18px;margin-top:18px;max-width:36em}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:32px;max-width:720px}
+.stat{background:color-mix(in srgb,var(--card) 82%,transparent);backdrop-filter:blur(6px);border:1px solid var(--line);border-radius:14px;padding:14px 14px 12px}
+.stat b{display:block;font:800 22px/1.1 var(--h);color:var(--ink)}
+.stat small{display:block;font-size:12.5px;color:var(--muted);margin-top:4px;line-height:1.35}
+
+/* sections */
+section.s{padding:64px 0;border-bottom:1px solid var(--line)}
+section.s:nth-of-type(even){background:var(--alt)}
+.s h2{font-size:clamp(26px,3.4vw,34px);line-height:1.15;font-weight:800}
+.s .sub{margin-top:10px;max-width:42em}
+.head{margin-bottom:24px}
+
+/* chips + tabs */
+.calbar{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:12px;margin-bottom:16px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap}
+.tabs button{font:600 14px/1 var(--b);color:var(--body);background:var(--card);border:1px solid var(--line);border-radius:999px;padding:9px 16px;cursor:pointer}
+.tabs button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:6px 18px;font-size:13.5px}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:3px;margin-right:6px;vertical-align:-1px}
+
+/* calendar */
+.month{display:grid;grid-template-columns:repeat(7,1fr);border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.dn{font:700 11.5px/1 var(--b);letter-spacing:.08em;text-transform:uppercase;color:var(--muted);background:var(--alt);padding:11px 10px;border-bottom:1px solid var(--line)}
+.cell{min-height:118px;padding:8px;border-right:1px solid var(--line);border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:6px;min-width:0}
+.cell:nth-child(7n){border-right:0}
+.cell.out{background:var(--alt)}
+.cell .d{font:700 13px/1 var(--h);color:var(--muted)}
+.cell.today .d{color:#fff;background:var(--red);border-radius:999px;width:24px;height:24px;display:grid;place-items:center;font-size:12px}
+.ev{display:block;text-decoration:none;border-radius:10px;padding:6px 7px;font:600 12px/1.3 var(--b);color:var(--ink);border-left:3px solid;min-width:0}
+.ev.sh{background:var(--red-050);border-color:var(--red)}
+.ev.pc{background:var(--blue-050);border-color:var(--blue)}
+.ev small{display:block;font:700 10px/1 var(--b);letter-spacing:.08em;text-transform:uppercase;margin-bottom:3px}
+.ev.sh small{color:var(--red)}
+.ev.pc small{color:var(--blue)}
+.ev span{display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.ev:hover{filter:brightness(.97)}
+
+/* list */
+.list{display:grid;border:1px solid var(--line);border-radius:16px;overflow:hidden;background:var(--card)}
+.item{display:grid;grid-template-columns:92px 132px 1fr 150px;gap:18px;padding:14px 18px;align-items:center}
+.item+.item{border-top:1px solid var(--line)}
+.when b{display:block;font:800 18px/1.1 var(--h);color:var(--ink)}
+.when small{font-size:12.5px;color:var(--muted)}
+.thumb{position:relative;display:block;border-radius:10px;overflow:hidden;background:var(--alt);aspect-ratio:16/9}
+.thumb.v{aspect-ratio:16/9}
+.thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.thumb .len{position:absolute;right:5px;bottom:5px;background:rgba(0,0,0,.78);color:#fff;font:600 11px/1 var(--b);padding:3px 5px;border-radius:4px}
+.info{min-width:0}
+.info .k{font:700 11px/1 var(--b);letter-spacing:.1em;text-transform:uppercase}
+.k.sh{color:var(--red)} .k.pc{color:var(--blue)}
+.info h3{font-size:16px;line-height:1.35;margin:5px 0 4px}
+.info p{font-size:13.5px;color:var(--muted)}
+.tags{margin-top:6px;font-size:12.5px;color:var(--blue)}
+.side{display:flex;flex-direction:column;align-items:flex-end;gap:8px}
+.pill{display:inline-block;font:600 11.5px/1 var(--b);letter-spacing:.04em;padding:6px 9px;border-radius:999px}
+.p-sched{background:var(--amber-050);color:var(--amber)}
+.p-prem{background:var(--blue-050);color:var(--blue)}
+.p-live{background:var(--ok-050);color:var(--ok)}
+.open{font:600 13px/1 var(--b);color:var(--red);text-decoration:none}
+.open:hover{text-decoration:underline}
+.ev.rp{background:var(--teal-050);border-color:var(--teal)}
+.ev.rp small{color:var(--ok)}
+.ev.nw{background:var(--amber-050);border-color:var(--amber)}
+.ev.nw small{color:var(--amber)}
+.k.rp{color:var(--ok)} .k.nw{color:var(--amber)}
+.thumb.p{aspect-ratio:9/16;width:62px}
+.item.rpi{grid-template-columns:92px 62px 1fr 190px}
+.p-todo{background:var(--alt);color:var(--muted);border:1px solid var(--line)}
+.p-warn{background:var(--red-050);color:var(--red)}
+.src{font-size:12.5px;color:var(--muted);margin-top:4px}
+.src a{color:var(--blue);text-decoration:none}
+.rules{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:20px}
+.rule{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:14px 16px;font-size:14px}
+.rule b{display:block;font:800 15px var(--h);color:var(--ink);margin-bottom:4px}
+.note a{color:var(--blue)}
+@media (max-width:900px){.rules{grid-template-columns:1fr}.item.rpi{grid-template-columns:62px 1fr}}
+.ptabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
+.ptabs button{display:inline-flex;align-items:center;gap:8px;font:600 14px/1 var(--b);color:var(--body);background:var(--card);border:1px solid var(--line);border-radius:12px;padding:10px 16px;cursor:pointer}
+.ptabs button i{width:18px;height:18px;border-radius:5px;display:grid;place-items:center;color:#fff;font:800 9px/1 var(--b);font-style:normal}
+.ptabs button[aria-pressed="true"]{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);color:var(--ink)}
+.pf,.ev span.pf{display:flex;gap:3px;margin-top:5px;-webkit-line-clamp:unset;overflow:visible}
+.pf i,.side .pf i{width:16px;height:16px;border-radius:4px;display:grid;place-items:center;color:#fff;font:800 8px/1 var(--b);font-style:normal}
+.pf i.off{opacity:.35}
+.c-yt{background:#FF0000}.c-fb{background:#1877F2}.c-tt{background:#111}.c-all{background:var(--muted)}
+.pst{display:grid;gap:4px;justify-items:end;font-size:12px;color:var(--muted)}
+.pst span{display:inline-flex;align-items:center;gap:6px}
+.note{margin-top:16px;font-size:13.5px;color:var(--muted);background:var(--amber-050);border-radius:12px;padding:12px 16px}
+.note b{color:var(--amber)}
+
+footer{padding:28px 0 40px;font-size:13px;color:var(--muted)}
+
+@media (max-width:900px){
+  .hero-in{padding:36px 16px 40px}
+  .brand{margin-bottom:20px}
+  .item{grid-template-columns:120px 1fr;gap:12px}
+  .item .when{grid-column:1/-1;display:flex;gap:10px;align-items:baseline}
+  .side{grid-column:1/-1;flex-direction:row;justify-content:space-between;align-items:center}
+  .month{display:block;border:0;background:none}
+  .month .dn,.month .cell.out,.month .cell.empty{display:none}
+  .cell{border:1px solid var(--line);border-radius:12px;background:var(--card);min-height:0;margin-bottom:8px;flex-direction:row;align-items:flex-start}
+  .cell .d{width:44px;flex:none;padding-top:6px}
+  .cell .evs{flex:1;display:grid;gap:6px;min-width:0}
+}
+@media (max-width:600px){
+  .wrap{padding:0 16px}
+  section.s{padding:48px 0}
+  .stats{grid-template-columns:1fr 1fr}
+}
+
+.brand i{background:#2f3d65}
+.hero h1 em{color:#943c59}
+.eyebrow b{color:#943c59}
+.ev{display:flex;gap:6px;align-items:flex-start;background:var(--alt);border-color:var(--c)}
+.ev img{width:30px;border-radius:4px;flex:none}
+.ev small{color:var(--c)}
+.item.ii{grid-template-columns:92px 96px 1fr 170px;align-items:start}
+.thumb.i{aspect-ratio:auto}
+.k{color:var(--c)}
+.cap{white-space:pre-line;font-size:13.5px;color:var(--body);background:var(--alt);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin-top:8px;max-height:7.2em;overflow:hidden;position:relative;cursor:pointer}
+.cap.open{max-height:none}
+.cap:not(.open)::after{content:"";position:absolute;left:0;right:0;bottom:0;height:2.4em;background:linear-gradient(transparent,var(--alt))}
+.side .btn{font:600 13px/1 var(--b);border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:999px;padding:8px 12px;cursor:pointer;text-decoration:none;white-space:nowrap}
+.side .btn:hover{border-color:var(--ink)}
+.meta{font-size:12.5px;color:var(--muted);margin-top:2px}
+.chan{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.chan span{font:600 11.5px/1 var(--b);padding:5px 8px;border-radius:999px;background:var(--blue-050);color:var(--blue)}
+.chan span.off{background:var(--alt);color:var(--muted);border:1px dashed var(--line)}
+.xlink{display:inline-block;margin-top:22px;font:600 14px/1 var(--b);color:var(--blue);text-decoration:none}
+.evkey{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:20px}
+.evkey div{background:var(--card);border:1px solid var(--line);border-top:3px solid var(--c);border-radius:14px;padding:12px 14px;font-size:13.5px}
+.evkey b{display:block;font:800 15px/1.3 var(--h);color:var(--ink)}
+@media (max-width:900px){.item.ii{grid-template-columns:96px 1fr}.evkey{grid-template-columns:1fr 1fr}.ev img{display:none}}
+@media (max-width:600px){.evkey{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="hero-bg"><div class="aurora a1"></div><div class="aurora a2"></div><div class="aurora a3"></div><div class="grid"></div></div>
+  <div class="hero-in">
+    <div class="brand"><i><svg viewBox="0 0 12 12" fill="#fff"><rect x="1.5" y="1.5" width="9" height="9" rx="1.5"/></svg></i>Isabelle Claus Teixeira<span>HummingBeing &middot; BHD Asia</span></div>
+    <p class="eyebrow"><b>Images</b> &middot; Social posting plan &middot; 15 Oct &ndash; 31 Dec 2026</p>
+    <h1>Event images, <em>one post at a time.</em></h1>
+    <p class="lead">Every finished HummingBeing event image, placed on a date so each workshop builds up to its day and closes with a &ldquo;tonight&rdquo; post. At most one image a day, at 12:00 PM, so it never clashes with the 7:00 PM video post.</p>
+    <div class="stats">
+      <div class="stat"><b>43</b><small>image posts</small></div>
+      <div class="stat"><b>4</b><small>events promoted</small></div>
+      <div class="stat"><b>12:00 PM</b><small>Singapore / Manila time</small></div>
+      <div class="stat"><b>0</b><small>scheduled yet: plan only</small></div>
+    </div>
+    <a class="xlink" href="./">&larr; Video schedule (YouTube &middot; Facebook &middot; TikTok)</a>
+  </div>
+</header>
+<main>
+  <section class="s">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">01 &middot; How it runs</p>
+        <h2>The rules behind the dates</h2>
+      </div>
+      <div class="rules">
+        <div class="rule"><b>Build up to each event</b>Each workshop opens with its key poster about four weeks out, then posts every second or third day. It ends with a &ldquo;tonight&rdquo; post on the day itself.</div>
+        <div class="rule"><b>Certification fills the gaps</b>The 2027 certification posts go on the free days. They pick up in December and finish on 31 Dec, the last day of the S$5,888 early-bird price.</div>
+        <div class="rule"><b>Where it goes</b>BHD Asia Facebook page and the bhd-asia LinkedIn page. The HummingBeing Facebook channel is locked in Buffer and no Instagram account is connected, so add those once they are unlocked.</div>
+      </div>
+      <div class="evkey"><div style="--c:#943c59"><b>Navigating Feminine &amp; Masculine Energetics</b>Sara Marie<br>Wed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom<br><span class="meta">10 image posts</span></div><div style="--c:#2ea3f2"><b>The Body in the Room</b>Aun Ali<br>Wed 25 Nov 2026, 7&ndash;9 PM SGT, online<br><span class="meta">11 image posts</span></div><div style="--c:#21B799"><b>Breath as a medicine</b>Ania Zieli&#324;ska<br>Tue 15 Dec 2026, 7&ndash;9 PM SGT, online<br><span class="meta">11 image posts</span></div><div style="--c:#A96B00"><b>TRE&trade; Certification 2027</b>Isabelle &amp; Simba<br>3 modules in Singapore: Feb, Jul and Oct 2027<br><span class="meta">11 image posts</span></div></div>
+    </div>
+  </section>
+  <section class="s">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">02 &middot; Calendar</p>
+        <h2>Month view</h2>
+        <p class="sub">Click an entry to jump to its caption.</p>
+      </div>
+      <div class="calbar"><div class="tabs" id="mtabs"></div></div>
+      <div class="month" id="month"></div>
+    </div>
+  </section>
+  <section class="s">
+    <div class="wrap">
+      <div class="head">
+        <p class="eyebrow">03 &middot; Full list</p>
+        <h2>Every image, with its caption</h2>
+        <p class="sub">Click a caption to expand it. &ldquo;Copy caption&rdquo; copies the full text, and &ldquo;Image&rdquo; opens the 1080&nbsp;px post file.</p>
+      </div>
+      <div class="calbar"><div class="tabs" id="ftabs"></div></div>
+      <div class="list" id="list"></div>
+      <p class="note"><b>Before scheduling:</b> posts 17&ndash;36 (HummingBeing Set 3) were rendered but are not in the Drive &ldquo;01. Social Media Posting&rdquo; folder yet. Discount codes are left out of the captions on purpose. The Sara Marie branded set (21 posts) is for Sara Marie&rsquo;s own pages, so it is not in this plan.</p>
+    </div>
+  </section>
+</main>
+<footer><div class="wrap">Isabelle Claus Teixeira &middot; image posting plan &middot; prepared 14 Oct 2026</div></footer>
+<script>
+var D = {"ev": {"fm": {"name": "Navigating Feminine &amp; Masculine Energetics", "who": "Sara Marie", "when": "Wed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom", "price": "S$88", "url": "https://hummingbeing.com/event-feminine-masculine-energetics", "tags": "#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE", "col": "#943c59"}, "br": {"name": "The Body in the Room", "who": "Aun Ali", "when": "Wed 25 Nov 2026, 7&ndash;9 PM SGT, online", "price": "S$88", "url": "https://hummingbeing.com/event-body-in-the-room", "tags": "#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed", "col": "#2ea3f2"}, "bm": {"name": "Breath as a medicine", "who": "Ania Zieli&#324;ska", "when": "Tue 15 Dec 2026, 7&ndash;9 PM SGT, online", "price": "S$88", "url": "https://hummingbeing.com/event-breath-as-medicine", "tags": "#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing", "col": "#21B799"}, "ct": {"name": "TRE&trade; Certification 2027", "who": "Isabelle &amp; Simba", "when": "3 modules in Singapore: Feb, Jul and Oct 2027", "price": "S$5,888 early bird until 31 Dec 2026 (then S$6,688)", "url": "https://hummingbeing.com/event-certification-2027", "tags": "#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore", "col": "#A96B00"}}, "rows": [{"n": 1, "d": "2026-10-15", "e": "fm", "concept": "Key poster", "file": "01-hummingbeing-feminine-masculine-energetics-poster.jpg", "folder": "00. Poster", "img": "img/01-01-hummingbeing-feminine-masculine-energetics-poster.jpg", "ratio": "4:5", "full": "full/01-01-hummingbeing-feminine-masculine-energetics-poster.jpg", "cap": "New online workshop: how feminine and masculine energy play out inside corporate structures, with Sara Marie.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 2, "d": "2026-10-16", "e": "fm", "concept": "Two currents", "file": "01-hummingbeing-feminine-masculine-energetics-two-currents.png", "folder": "out-set2", "img": "img/02-01-hummingbeing-feminine-masculine-energetics-two-currents.jpg", "ratio": "3:4", "full": "full/02-01-hummingbeing-feminine-masculine-energetics-two-currents.jpg", "cap": "Two currents run through every workplace. This workshop looks at how they meet in you.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 3, "d": "2026-10-17", "e": "ct", "concept": "Key poster", "file": "04-hummingbeing-certification-2027-poster.jpg", "folder": "00. Poster", "img": "img/03-04-hummingbeing-certification-2027-poster.jpg", "ratio": "4:5", "full": "full/03-04-hummingbeing-certification-2027-poster.jpg", "cap": "The 2027 TRE&trade; Provider Certification is open: three modules in Singapore with Isabelle and Simba.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 4, "d": "2026-10-18", "e": "fm", "concept": "The woman this is for", "file": "17-hummingbeing-feminine-masculine-energetics-the-woman-this-is-for.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/04-17-hummingbeing-feminine-masculine-energetics-the-woman-this-is-for.jpg", "ratio": "3:4", "full": "full/04-17-hummingbeing-feminine-masculine-energetics-the-woman-this-is-for.jpg", "cap": "Is this workshop for you? Read who Sara Marie made it for.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 5, "d": "2026-10-19", "e": "fm", "concept": "Three movements", "file": "02-hummingbeing-feminine-masculine-energetics-three-movements.png", "folder": "out-set2", "img": "img/05-02-hummingbeing-feminine-masculine-energetics-three-movements.jpg", "ratio": "3:4", "full": "full/05-02-hummingbeing-feminine-masculine-energetics-three-movements.jpg", "cap": "One evening, three movements.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 6, "d": "2026-10-21", "e": "fm", "concept": "What we'll dive into", "file": "18-hummingbeing-feminine-masculine-energetics-what-well-dive-into.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/06-18-hummingbeing-feminine-masculine-energetics-what-well-dive-into.jpg", "ratio": "3:4", "full": "full/06-18-hummingbeing-feminine-masculine-energetics-what-well-dive-into.jpg", "cap": "What we will dive into on 28 October.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 7, "d": "2026-10-22", "e": "fm", "concept": "The Alchemist", "file": "03-hummingbeing-feminine-masculine-energetics-the-alchemist.png", "folder": "out-set2", "img": "img/07-03-hummingbeing-feminine-masculine-energetics-the-alchemist.jpg", "ratio": "3:4", "full": "full/07-03-hummingbeing-feminine-masculine-energetics-the-alchemist.jpg", "cap": "Meet your facilitator: Sara Marie, The Alchemist.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 8, "d": "2026-10-23", "e": "ct", "concept": "Sunrise key", "file": "13-hummingbeing-certification-2027-sunrise-key.png", "folder": "out-set2", "img": "img/08-13-hummingbeing-certification-2027-sunrise-key.jpg", "ratio": "3:4", "full": "full/08-13-hummingbeing-certification-2027-sunrise-key.jpg", "cap": "Your 2027 TRE&trade; journey starts with Module 1 in February.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 9, "d": "2026-10-24", "e": "fm", "concept": "Structure meets flow", "file": "19-hummingbeing-feminine-masculine-energetics-structure-meets-flow.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/09-19-hummingbeing-feminine-masculine-energetics-structure-meets-flow.jpg", "ratio": "3:4", "full": "full/09-19-hummingbeing-feminine-masculine-energetics-structure-meets-flow.jpg", "cap": "Where structure meets flow.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 10, "d": "2026-10-26", "e": "fm", "concept": "Alchemy vessel", "file": "04-hummingbeing-feminine-masculine-energetics-alchemy-vessel.png", "folder": "out-set2", "img": "img/10-04-hummingbeing-feminine-masculine-energetics-alchemy-vessel.jpg", "ratio": "3:4", "full": "full/10-04-hummingbeing-feminine-masculine-energetics-alchemy-vessel.jpg", "cap": "Two days to go.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 11, "d": "2026-10-27", "e": "fm", "concept": "The evening in three parts", "file": "20-hummingbeing-feminine-masculine-energetics-the-evening-in-three-parts.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/11-20-hummingbeing-feminine-masculine-energetics-the-evening-in-three-parts.jpg", "ratio": "3:4", "full": "full/11-20-hummingbeing-feminine-masculine-energetics-the-evening-in-three-parts.jpg", "cap": "Tomorrow evening, in three parts.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 12, "d": "2026-10-28", "e": "fm", "concept": "Prepare your space", "file": "21-hummingbeing-feminine-masculine-energetics-prepare-your-space.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/12-21-hummingbeing-feminine-masculine-energetics-prepare-your-space.jpg", "ratio": "3:4", "full": "full/12-21-hummingbeing-feminine-masculine-energetics-prepare-your-space.jpg", "cap": "Tonight, 7 PM SGT. Prepare your space and join us on Zoom.\n\nNavigating Feminine &amp; Masculine Energetics with Sara Marie\nWed 28 Oct 2026, 7&ndash;9:30 PM SGT, live on Zoom\nS$88\n\nDetails and registration: https://hummingbeing.com/event-feminine-masculine-energetics\n\n#HummingBeing #FeminineEnergy #MasculineEnergy #WomenInLeadership #TRE"}, {"n": 13, "d": "2026-10-29", "e": "ct", "concept": "What makes it special", "file": "32-hummingbeing-certification-2027-what-makes-it-special.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/13-32-hummingbeing-certification-2027-what-makes-it-special.jpg", "ratio": "3:4", "full": "full/13-32-hummingbeing-certification-2027-what-makes-it-special.jpg", "cap": "What makes the 2027 certification different.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 14, "d": "2026-10-30", "e": "br", "concept": "Key poster", "file": "02-hummingbeing-body-in-the-room-poster.jpg", "folder": "00. Poster", "img": "img/14-02-hummingbeing-body-in-the-room-poster.jpg", "ratio": "4:5", "full": "full/14-02-hummingbeing-body-in-the-room-poster.jpg", "cap": "New online workshop for therapists and practitioners: The Body in the Room, with Aun Ali.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 15, "d": "2026-11-01", "e": "br", "concept": "Body in the light", "file": "05-hummingbeing-body-in-the-room-body-in-the-light.png", "folder": "out-set2", "img": "img/15-05-hummingbeing-body-in-the-room-body-in-the-light.jpg", "ratio": "3:4", "full": "full/15-05-hummingbeing-body-in-the-room-body-in-the-light.jpg", "cap": "Bringing the body into the therapy room.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 16, "d": "2026-11-03", "e": "br", "concept": "Five principles", "file": "22-hummingbeing-body-in-the-room-five-principles.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/16-22-hummingbeing-body-in-the-room-five-principles.jpg", "ratio": "3:4", "full": "full/16-22-hummingbeing-body-in-the-room-five-principles.jpg", "cap": "Five principles behind a trauma-informed, body-aware practice.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 17, "d": "2026-11-05", "e": "br", "concept": "Six threads", "file": "06-hummingbeing-body-in-the-room-six-threads.png", "folder": "out-set2", "img": "img/17-06-hummingbeing-body-in-the-room-six-threads.jpg", "ratio": "3:4", "full": "full/17-06-hummingbeing-body-in-the-room-six-threads.jpg", "cap": "Six threads Aun Ali will pull together on 25 November.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 18, "d": "2026-11-07", "e": "br", "concept": "Story and sensation", "file": "23-hummingbeing-body-in-the-room-story-and-sensation.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/18-23-hummingbeing-body-in-the-room-story-and-sensation.jpg", "ratio": "3:4", "full": "full/18-23-hummingbeing-body-in-the-room-story-and-sensation.jpg", "cap": "Story and sensation: working with both.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 19, "d": "2026-11-09", "e": "br", "concept": "Facilitator orbit", "file": "07-hummingbeing-body-in-the-room-facilitator-orbit.png", "folder": "out-set2", "img": "img/19-07-hummingbeing-body-in-the-room-facilitator-orbit.jpg", "ratio": "3:4", "full": "full/19-07-hummingbeing-body-in-the-room-facilitator-orbit.jpg", "cap": "Meet Aun Ali, Certified TRE&trade; Trainer and founder of the Trauma Release and Wellness Centre.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 20, "d": "2026-11-11", "e": "bm", "concept": "Key poster", "file": "03-hummingbeing-breath-as-medicine-poster.jpg", "folder": "00. Poster", "img": "img/20-03-hummingbeing-breath-as-medicine-poster.jpg", "ratio": "4:5", "full": "full/20-03-hummingbeing-breath-as-medicine-poster.jpg", "cap": "New online workshop: Breath as a medicine, an introduction to pranayama with Ania Zieli&#324;ska.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 21, "d": "2026-11-13", "e": "br", "concept": "Where TRE fits", "file": "24-hummingbeing-body-in-the-room-where-tre-fits.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/21-24-hummingbeing-body-in-the-room-where-tre-fits.jpg", "ratio": "3:4", "full": "full/21-24-hummingbeing-body-in-the-room-where-tre-fits.jpg", "cap": "Where TRE&trade; fits in psychotherapy.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 22, "d": "2026-11-15", "e": "bm", "concept": "Breath trace", "file": "09-hummingbeing-breath-as-medicine-breath-trace.png", "folder": "out-set2", "img": "img/22-09-hummingbeing-breath-as-medicine-breath-trace.jpg", "ratio": "3:4", "full": "full/22-09-hummingbeing-breath-as-medicine-breath-trace.jpg", "cap": "Follow the breath.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 23, "d": "2026-11-16", "e": "br", "concept": "Window of tolerance", "file": "08-hummingbeing-body-in-the-room-window-of-tolerance.png", "folder": "out-set2", "img": "img/23-08-hummingbeing-body-in-the-room-window-of-tolerance.jpg", "ratio": "3:4", "full": "full/23-08-hummingbeing-body-in-the-room-window-of-tolerance.jpg", "cap": "Working inside the window of tolerance.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 24, "d": "2026-11-18", "e": "bm", "concept": "Breath, nervous system, mind", "file": "27-hummingbeing-breath-as-medicine-breath-nervous-system-mind.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/24-27-hummingbeing-breath-as-medicine-breath-nervous-system-mind.jpg", "ratio": "3:4", "full": "full/24-27-hummingbeing-breath-as-medicine-breath-nervous-system-mind.jpg", "cap": "How breath, nervous system and mind connect.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 25, "d": "2026-11-19", "e": "br", "concept": "When to hold back", "file": "25-hummingbeing-body-in-the-room-when-to-hold-back.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/25-25-hummingbeing-body-in-the-room-when-to-hold-back.jpg", "ratio": "3:4", "full": "full/25-25-hummingbeing-body-in-the-room-when-to-hold-back.jpg", "cap": "Knowing when to hold back.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 26, "d": "2026-11-20", "e": "ct", "concept": "Journey", "file": "14-hummingbeing-certification-2027-journey.png", "folder": "out-set2", "img": "img/26-14-hummingbeing-certification-2027-journey.jpg", "ratio": "3:4", "full": "full/26-14-hummingbeing-certification-2027-journey.jpg", "cap": "The 2027 cohort: three modules, February to October.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 27, "d": "2026-11-21", "e": "bm", "concept": "Six breaths", "file": "10-hummingbeing-breath-as-medicine-six-breaths.png", "folder": "out-set2", "img": "img/27-10-hummingbeing-breath-as-medicine-six-breaths.jpg", "ratio": "3:4", "full": "full/27-10-hummingbeing-breath-as-medicine-six-breaths.jpg", "cap": "Six breaths to begin.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 28, "d": "2026-11-22", "e": "br", "concept": "Who is in the room", "file": "26-hummingbeing-body-in-the-room-who-is-in-the-room.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/28-26-hummingbeing-body-in-the-room-who-is-in-the-room.jpg", "ratio": "3:4", "full": "full/28-26-hummingbeing-body-in-the-room-who-is-in-the-room.jpg", "cap": "Who is in the room? Three days to go.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 29, "d": "2026-11-25", "e": "br", "concept": "Elegant poster", "file": "ig-fb-post-3x4_hummingbeing_elegant-poster_body-in-the-room.png", "folder": "01. Social Media Posting", "img": "img/29-ig-fb-post-3x4-hummingbeing-elegant-poster-body-in-the-room.jpg", "ratio": "3:4", "full": "full/29-ig-fb-post-3x4-hummingbeing-elegant-poster-body-in-the-room.jpg", "cap": "Tonight, 7 PM SGT: The Body in the Room with Aun Ali.\n\nThe Body in the Room with Aun Ali\nWed 25 Nov 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-body-in-the-room\n\n#HummingBeing #TRE #SomaticPractice #Psychotherapy #TraumaInformed"}, {"n": 30, "d": "2026-11-27", "e": "bm", "concept": "During the session", "file": "28-hummingbeing-breath-as-medicine-during-the-session.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/30-28-hummingbeing-breath-as-medicine-during-the-session.jpg", "ratio": "3:4", "full": "full/30-28-hummingbeing-breath-as-medicine-during-the-session.jpg", "cap": "What happens during the session.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 31, "d": "2026-11-29", "e": "bm", "concept": "Sunrise facilitator", "file": "11-hummingbeing-breath-as-medicine-sunrise-facilitator.png", "folder": "out-set2", "img": "img/31-11-hummingbeing-breath-as-medicine-sunrise-facilitator.jpg", "ratio": "3:4", "full": "full/31-11-hummingbeing-breath-as-medicine-sunrise-facilitator.jpg", "cap": "Meet Ania Zieli&#324;ska: yoga teacher, holistic health coach and life realignment mentor.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 32, "d": "2026-12-01", "e": "ct", "concept": "What is included", "file": "33-hummingbeing-certification-2027-what-is-included.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/32-33-hummingbeing-certification-2027-what-is-included.jpg", "ratio": "3:4", "full": "full/32-33-hummingbeing-certification-2027-what-is-included.jpg", "cap": "What is included in the 2027 certification.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 33, "d": "2026-12-02", "e": "bm", "concept": "Breathing patterns", "file": "29-hummingbeing-breath-as-medicine-breathing-patterns.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/33-29-hummingbeing-breath-as-medicine-breathing-patterns.jpg", "ratio": "3:4", "full": "full/33-29-hummingbeing-breath-as-medicine-breathing-patterns.jpg", "cap": "Your breathing patterns, explained.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 34, "d": "2026-12-04", "e": "ct", "concept": "Two trainers, who it's for", "file": "15-hummingbeing-certification-2027-two-trainers-who-its-for.png", "folder": "out-set2", "img": "img/34-15-hummingbeing-certification-2027-two-trainers-who-its-for.jpg", "ratio": "3:4", "full": "full/34-15-hummingbeing-certification-2027-two-trainers-who-its-for.jpg", "cap": "Two trainers, and who the certification is for.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 35, "d": "2026-12-05", "e": "bm", "concept": "Luminous lungs", "file": "12-hummingbeing-breath-as-medicine-luminous-lungs.png", "folder": "out-set2", "img": "img/35-12-hummingbeing-breath-as-medicine-luminous-lungs.jpg", "ratio": "3:4", "full": "full/35-12-hummingbeing-breath-as-medicine-luminous-lungs.jpg", "cap": "Breath as a medicine, open to beginners.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 36, "d": "2026-12-08", "e": "bm", "concept": "Everyday breath", "file": "30-hummingbeing-breath-as-medicine-everyday-breath.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/36-30-hummingbeing-breath-as-medicine-everyday-breath.jpg", "ratio": "3:4", "full": "full/36-30-hummingbeing-breath-as-medicine-everyday-breath.jpg", "cap": "Bringing the practice into everyday breath.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 37, "d": "2026-12-11", "e": "bm", "concept": "Come as you are", "file": "31-hummingbeing-breath-as-medicine-come-as-you-are.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/37-31-hummingbeing-breath-as-medicine-come-as-you-are.jpg", "ratio": "3:4", "full": "full/37-31-hummingbeing-breath-as-medicine-come-as-you-are.jpg", "cap": "Come as you are. No experience needed.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 38, "d": "2026-12-13", "e": "ct", "concept": "Your 2027 journey", "file": "34-hummingbeing-certification-2027-your-2027-journey.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/38-34-hummingbeing-certification-2027-your-2027-journey.jpg", "ratio": "3:4", "full": "full/38-34-hummingbeing-certification-2027-your-2027-journey.jpg", "cap": "Plan your 2027: module dates at a glance.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 39, "d": "2026-12-15", "e": "bm", "concept": "Elegant poster", "file": "ig-fb-post-3x4_hummingbeing_elegant-poster_breath-as-medicine.png", "folder": "01. Social Media Posting", "img": "img/39-ig-fb-post-3x4-hummingbeing-elegant-poster-breath-as-medicine.jpg", "ratio": "3:4", "full": "full/39-ig-fb-post-3x4-hummingbeing-elegant-poster-breath-as-medicine.jpg", "cap": "Tonight, 7 PM SGT: Breath as a medicine with Ania Zieli&#324;ska.\n\nBreath as a medicine with Ania Zieli&#324;ska\nTue 15 Dec 2026, 7&ndash;9 PM SGT, online\nS$88\n\nDetails and registration: https://hummingbeing.com/event-breath-as-medicine\n\n#HummingBeing #Pranayama #Breathwork #ConsciousBreathing #Wellbeing"}, {"n": 40, "d": "2026-12-17", "e": "ct", "concept": "One to many", "file": "16-hummingbeing-certification-2027-one-to-many.png", "folder": "out-set2", "img": "img/40-16-hummingbeing-certification-2027-one-to-many.jpg", "ratio": "3:4", "full": "full/40-16-hummingbeing-certification-2027-one-to-many.jpg", "cap": "From one-to-one to groups: what the certification prepares you for.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 41, "d": "2026-12-20", "e": "ct", "concept": "Is this for you?", "file": "35-hummingbeing-certification-2027-is-this-for-you.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/41-35-hummingbeing-certification-2027-is-this-for-you.jpg", "ratio": "3:4", "full": "full/41-35-hummingbeing-certification-2027-is-this-for-you.jpg", "cap": "Is the 2027 certification for you?\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 42, "d": "2026-12-26", "e": "ct", "concept": "Elegant poster", "file": "ig-fb-post-3x4_hummingbeing_elegant-poster_certification-2027.png", "folder": "01. Social Media Posting", "img": "img/42-ig-fb-post-3x4-hummingbeing-elegant-poster-certification-2027.jpg", "ratio": "3:4", "full": "full/42-ig-fb-post-3x4-hummingbeing-elegant-poster-certification-2027.jpg", "cap": "Five days left for the early-bird price on the 2027 certification.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}, {"n": 43, "d": "2026-12-31", "e": "ct", "concept": "Investment and early bird", "file": "36-hummingbeing-certification-2027-investment-and-early-bird.png", "folder": "HummingBeing Set 3 (not in Drive yet)", "img": "img/43-36-hummingbeing-certification-2027-investment-and-early-bird.jpg", "ratio": "3:4", "full": "full/43-36-hummingbeing-certification-2027-investment-and-early-bird.jpg", "cap": "Last day for the S$5,888 early-bird price.\n\nTRE&trade; Certification 2027 with Isabelle &amp; Simba\n3 modules in Singapore: Feb, Jul and Oct 2027\nS$5,888 early bird until 31 Dec 2026 (then S$6,688)\n\nDetails and registration: https://hummingbeing.com/event-certification-2027\n\n#HummingBeing #TRE #TRECertification #TraumaReleasingExercises #Singapore"}]};
+var MON=["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],DOW=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"];
+function pd(s){var a=s.split("-");return new Date(+a[0],a[1]-1,+a[2])}
+function esc(s){return s.replace(/&/g,"&amp;").replace(/</g,"&lt;")}
+var months=[[2026,9],[2026,10],[2026,11]],cur=0,fcur="all";
+var t=new Date();months.forEach(function(m,i){if(t.getFullYear()===m[0]&&t.getMonth()===m[1])cur=i});
+function drawMonth(){
+  var y=months[cur][0],m=months[cur][1],first=new Date(y,m,1),start=(first.getDay()+6)%7,days=new Date(y,m+1,0).getDate(),h="";
+  ["Mon","Tue","Wed","Thu","Fri","Sat","Sun"].forEach(function(d){h+='<div class="dn">'+d+'</div>'});
+  for(var i=0;i<start;i++)h+='<div class="cell out empty"></div>';
+  for(var d=1;d<=days;d++){
+    var key=y+"-"+String(m+1).padStart(2,"0")+"-"+String(d).padStart(2,"0");
+    var isT=t.getFullYear()===y&&t.getMonth()===m&&t.getDate()===d;
+    var evs=D.rows.filter(function(r){return r.d===key});
+    h+='<div class="cell'+(isT?' today':'')+'"><span class="d">'+d+'</span><div class="evs">'+evs.map(function(r){var v=D.ev[r.e];
+      return '<a class="ev" style="--c:'+v.col+'" href="#p'+r.n+'"><img src="'+r.img+'" alt=""><span><small>'+v.name.replace(/ with.*$/,"").split(" ").slice(0,3).join(" ")+'</small>'+r.concept+'</span></a>'}).join("")+'</div></div>';
+  }
+  document.getElementById("month").innerHTML=h;
+  document.getElementById("mtabs").innerHTML=months.map(function(mm,i){var c=D.rows.filter(function(r){var x=pd(r.d);return x.getFullYear()===mm[0]&&x.getMonth()===mm[1]}).length;
+    return '<button data-i="'+i+'" aria-pressed="'+(i===cur)+'">'+MON[mm[1]]+' '+mm[0]+' &middot; '+c+'</button>'}).join("");
+}
+document.getElementById("mtabs").addEventListener("click",function(e){var b=e.target.closest("button");if(b){cur=+b.dataset.i;drawMonth()}});
+function drawList(){
+  document.getElementById("ftabs").innerHTML=[["all","All"]].concat(Object.keys(D.ev).map(function(k){return [k,D.ev[k].name]})).map(function(f){
+    var c=D.rows.filter(function(r){return f[0]==="all"||r.e===f[0]}).length;return '<button data-f="'+f[0]+'" aria-pressed="'+(f[0]===fcur)+'">'+f[1]+' &middot; '+c+'</button>'}).join("");
+  document.getElementById("list").innerHTML=D.rows.filter(function(r){return fcur==="all"||r.e===fcur}).map(function(r){var v=D.ev[r.e],x=pd(r.d);
+    return '<div class="item ii" id="p'+r.n+'" style="--c:'+v.col+'">'+
+      '<div class="when"><b>'+x.getDate()+' '+MON[x.getMonth()]+'</b><small>'+DOW[x.getDay()]+' &middot; 12:00 PM</small></div>'+
+      '<a class="thumb i" href="'+r.full+'" target="_blank" rel="noopener"><img loading="lazy" src="'+r.img+'" alt="'+r.concept+'"></a>'+
+      '<div class="info"><span class="k">#'+r.n+' &middot; '+v.name+'</span><h3>'+r.concept+'</h3><p class="meta">'+r.file+' &middot; '+r.ratio+' &middot; '+r.folder+'</p>'+
+      '<div class="chan"><span>Facebook &middot; BHD Asia</span><span>LinkedIn &middot; bhd-asia</span><span class="off">HummingBeing FB (locked)</span><span class="off">Instagram (not connected)</span></div>'+
+      '<div class="cap">'+r.cap+'</div></div>'+
+      '<div class="side"><span class="pill p-todo">Planned</span><button class="btn" data-copy="'+r.n+'">Copy caption</button><a class="btn" href="'+r.full+'" download>Image &darr;</a></div>'+
+    '</div>'}).join("");
+}
+document.getElementById("ftabs").addEventListener("click",function(e){var b=e.target.closest("button");if(b){fcur=b.dataset.f;drawList()}});
+document.getElementById("list").addEventListener("click",function(e){
+  var c=e.target.closest(".cap");if(c){c.classList.toggle("open");return}
+  var b=e.target.closest("[data-copy]");if(!b)return;
+  var r=D.rows.filter(function(x){return x.n==b.dataset.copy})[0],tmp=document.createElement("textarea");
+  tmp.innerHTML=r.cap;var txt=tmp.value;
+  (navigator.clipboard?navigator.clipboard.writeText(txt):Promise.reject()).catch(function(){tmp.value=txt;document.body.appendChild(tmp);tmp.select();document.execCommand("copy");tmp.remove()});
+  b.textContent="Copied";setTimeout(function(){b.textContent="Copy caption"},1500);
+});
+drawMonth();drawList();
+</script>
+</body>
+</html>
