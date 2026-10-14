@@ -259,7 +259,7 @@ var ALL=DATA.concat(X.rep);
 /* platforms: yt = YouTube, fb = Facebook (BHD Asia page), tt = TikTok. Status text per platform. */
 DATA.forEach(function(e){
   e.pl = e.t==="pc" ? {yt:e.st==="live"?"Live":e.st==="prem"?"Premiere":"Scheduled"}
-       : {yt:"Scheduled", fb:"Buffer 7:00 PM", tt:"Planned"};
+       : {yt:"Scheduled", fb:"Scheduled 7:00 PM (Buffer)", tt:"Planned"};
 });
 X.rep.forEach(function(e){ e.pl = {yt:"Planned", fb:"Planned", tt:"Planned"}; });
 var PL=[["all","All platforms","&#9679;","c-all"],["yt","YouTube","YT","c-yt"],["fb","Facebook","FB","c-fb"],["tt","TikTok","TT","c-tt"]], pcur="all";
